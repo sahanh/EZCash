@@ -28,7 +28,7 @@ After installing, you need to require Composer's autoloader:
 require 'vendor/autoload.php';
 ```
 ### Prerequisites
-Once signed up with EZCash, Dialog will provide 2 keys for data encyption and description. You'll need these 2 keys to process transactions through EZCash gateway.
+Once signed up with EZCash, Dialog will provide 2 keys for data encryption and decryption. You'll need these 2 keys to process transactions through EZCash gateway.
 
 PHP Client required openssl extesion.
 
