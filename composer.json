@@ -13,7 +13,8 @@
 
     },
     "require-dev": {
-        "mockery/mockery": "dev-master"
+        "mockery/mockery": "dev-master",
+        "phpunit/phpunit": "~4.0"
     },
     "autoload": {
         "psr-4": {"SZ\\EZCash\\":"src"}
