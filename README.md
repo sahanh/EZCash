@@ -28,9 +28,9 @@ After installing, you need to require Composer's autoloader:
 require 'vendor/autoload.php';
 ```
 ### Prerequisites
-Once signed up with EZCash, Dialog will provide 2 keys for data encryption and decryption. You'll need these 2 keys to process transactions through EZCash gateway.
+Once signed up with EZCash, Dialog will provide 2 keys for data encryption and decryption. You'll need these 2 keys to process transactions through the gateway.
 
-PHP Client required openssl extesion.
+PHP Client requires openssl extesion.
 
 ### Transaction Flow
 Generate a Form (Submit) -> Process Transaction at Dialog -> Redirected to our site
@@ -55,7 +55,7 @@ $params = array(
 echo $ez->getInvoiceForm($params);
 ```
 
-To use with a custom form use `getInvoice` to generate encrypted invoice and use it with an hidden field called `"invoice"`
+To use with a custom form use `getInvoice` to generate encrypted invoice and use it with a hidden field called `"invoice"`
 ```php
 //get the encrypted transaction data to use in form field
 $invoice = $ez->getInvoice($params);
@@ -65,7 +65,7 @@ $invoice = $ez->getInvoice($params);
 
 ### Get Merchant Receipt
 
-Once the transaction processing is completed Dialog will redirect user to the url provided when creating the transaction. The result of the transaction is included along with the redirect as `merchantReciept` form data. If the transaction status is under "failed", EZCash will throw an InvalidTransactionException.
+Once the transaction processing is complete Dialog will redirect user to the url provided when creating the transaction. The result of the transaction is included along with the redirect as `merchantReciept` form field. If the transaction status is under "failed", client will throw an InvalidTransactionException.
 
 ```php
 use SZ\EZCash\EZCash;
