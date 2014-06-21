@@ -61,6 +61,10 @@ class Request implements Cryptable
 
     public function setReturnUrl($url)
     {
+        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
+            throw new InvalidArgumentException('Invalid return url');
+        }
+
         $this->url = $url;
         return $this;
     }

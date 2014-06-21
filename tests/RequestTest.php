@@ -47,8 +47,13 @@ class RequestTest extends PHPUnit_Framework_Testcase
         $this->assertEquals('20.29', PHPUnit_Framework_Assert::readAttribute($req, 'amount'));
     }
 
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage Invalid return url
+     */
     public function testInvalidReturnUrl()
     {
-
+        $req = new Request;
+        $req->setReturnUrl('invalid');
     }
 }
