@@ -4,14 +4,13 @@
  */
 namespace SZ\EZCash\Key;
 
-use SplFileObject;
-
-class PublicKey extends SplFileObject
+class PublicKey extends Key
 {
-    public function __toString()
+    public function getFormattedKey()
     {
+        $return   = array();
         $return[] = '-----BEGIN PUBLIC KEY-----';
-        $return[] = wordwrap($this->fpassthru(), 64, "\n", true);
+        $return[] = wordwrap($this->getContent(), 64, "\n", true);
         $return[] = '-----END PUBLIC KEY-----';
 
         return implode("\n", $return);
