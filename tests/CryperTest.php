@@ -30,6 +30,23 @@ class CrypterTest extends PHPUnit_Framework_Testcase
         $this->assertEquals('test', $c->process($enc));
     }
 
+    /**
+     * @expectedException SZ\EZCash\Exception\CrypterException
+     */
+    public function testInvalidCryptingOperation()
+    {
+        $public_key = m::mock('SZ\EZCash\Key\PublicKey', array(__DIR__.'/shared/public_key.key'))
+                        ->shouldReceive('getFormattedKey')
+                        ->times(1)
+                        ->andReturn('invalid_key')
+                        ->getMock();
+        
+        $c = new Crypter;
+        $c->setKey($public_key);
+
+        $c->process('test');
+    }
+
     public function tearDown()
     {
         m::close();
