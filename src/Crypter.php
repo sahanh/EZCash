@@ -37,7 +37,7 @@ class Crypter
         //clear error stack
         while ($msg = openssl_error_string()) {};
 
-        @openssl_public_encrypt($source, $crypted, (string) $this->key);
+        @openssl_public_encrypt($source, $crypted, $this->key->getFormattedKey());
         
         if (!$crypted) {
 
@@ -56,7 +56,7 @@ class Crypter
         //clear error stack
         while ($msg = openssl_error_string()) {};
 
-        @openssl_private_decrypt($source, $decrypted, (string) $this->key);
+        @openssl_private_decrypt($source, $decrypted, $this->key->getFormattedKey());
         
         if (!$decrypted) {
 
