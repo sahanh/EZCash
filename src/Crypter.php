@@ -23,8 +23,10 @@ class Crypter
         return $this;
     }
 
-    public function process($data)
+    public function process(Cryptable $data)
     {
+        $data = $data->getCryptableData();
+
         if ($this->key instanceOf PublicKey) {
             return $this->encryptPublic($data);
         } elseif ($this->key instanceOf PrivateKey) {

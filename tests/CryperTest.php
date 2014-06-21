@@ -21,13 +21,23 @@ class CrypterTest extends PHPUnit_Framework_Testcase
                         ->andReturn(file_get_contents(__DIR__.'/shared/private_key_formatted.key'))
                         ->getMock();
 
+        $to_encrypt  = m::mock('SZ\EZCash\Cryptable')
+                        ->shouldReceive('getCryptableData')
+                        ->andReturn('test')
+                        ->getMock();
+
         $c = new Crypter;
         $c->setKey($public_key);
-        $enc = $c->process('test');
+        $enc = $c->process($to_encrypt);
+
+        $to_decrypt  = m::mock('SZ\EZCash\Cryptable')
+                        ->shouldReceive('getCryptableData')
+                        ->andReturn($enc)
+                        ->getMock();
 
         $c->setKey($private_key);
         
-        $this->assertEquals('test', $c->process($enc));
+        $this->assertEquals('test', $c->process($to_decrypt));
     }
 
     /**
@@ -44,7 +54,12 @@ class CrypterTest extends PHPUnit_Framework_Testcase
         $c = new Crypter;
         $c->setKey($public_key);
 
-        $c->process('test');
+        $to_encrypt  = m::mock('SZ\EZCash\Cryptable')
+                        ->shouldReceive('getCryptableData')
+                        ->andReturn('test')
+                        ->getMock();
+
+        $c->process($to_encrypt);
     }
 
     public function tearDown()
