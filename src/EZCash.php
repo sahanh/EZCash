@@ -29,9 +29,13 @@ class EZCash
         $this->private_key = new PrivateKey($private_key);
     }
 
+    /**
+     * Get API Endpoint URL
+     * @return string
+     */
     public function getEndpoint()
     {
-        return $endpoint;
+        return $this->endpoint;
     }
 
     /**
@@ -53,18 +57,34 @@ class EZCash
         return $c->process($req);
     }
 
-    public function getInvoiceForm()
+    /**
+     * Generate a simple html form to submit
+     * @param  array $params parameters for invoice
+     * @return string
+     */
+    public function getInvoiceForm($params)
     {
+        $url     = $this->getEndpoint();
+        $invoice = htmlentities($this->getInvoice($params));
 
+        return "<form action=\"{$url}\" method=\"POST\">
+            <input type=\"hidden\" name=\"merchantInvoice\" value=\"{$invoice}\" />      
+            <input type=\"submit\" />
+        </form>";
     }
 
+    /**
+     * Get receipt object from an encrypted response
+     * @param  string $response
+     * @return Receipt
+     */
     public function getReceipt($response)
     {
         $res     = new Response($response);
         $c       = new Crypter;
-        $c->setKey(new PrivateKey('mypublicKey.key'));
+        $c->setKey($this->private_key);
         
-        $data    = $c->process($req);
+        $data    = $c->process($res);
         $receipt = new Receipt($data);
         $receipt->validate();
 
