@@ -12,6 +12,9 @@
     "require": {
 
     },
+    "require-dev": {
+        "mockery/mockery": "dev-master"
+    },
     "autoload": {
         "psr-4": {"SZ\\EZCash\\":"src"}
     }
