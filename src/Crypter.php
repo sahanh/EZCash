@@ -6,6 +6,7 @@ namespace SZ\EZCash;
 
 use SZ\EZCash\Key\PrivateKey;
 use SZ\EZCash\Key\PublicKey;
+use SZ\EZCash\Key\Key;
 use SZ\EZCash\Exception\CrypterException;
 
 class Crypter
@@ -26,7 +27,7 @@ class Crypter
     {
         if ($this->key instanceOf PublicKey) {
             return $this->encryptPublic($data);
-        } elseif ($this->key instanceOf PrviateKey) {
+        } elseif ($this->key instanceOf PrivateKey) {
             return $this->decryptPrivate($data);
         }
     }
@@ -36,7 +37,7 @@ class Crypter
         //clear error stack
         while ($msg = openssl_error_string()) {};
 
-        openssl_public_encrypt($source, $crypted, (string) $this->key);
+        @openssl_public_encrypt($source, $crypted, (string) $this->key);
         
         if (!$crypted) {
 
@@ -48,14 +49,14 @@ class Crypter
         return base64_encode($crypted);
     }
 
-    protected function decryptPublic($source)
+    protected function decryptPrivate($source)
     {
         $source = base64_decode($source);
 
         //clear error stack
         while ($msg = openssl_error_string()) {};
 
-        openssl_private_decrypt($source, $decrypted, (string) $this->key);
+        @openssl_private_decrypt($source, $decrypted, (string) $this->key);
         
         if (!$decrypted) {
 
