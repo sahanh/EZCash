@@ -37,9 +37,9 @@ class Crypter
     protected function encryptPublic($source)
     {
         //clear error stack
-        while ($msg = openssl_error_string()) {};
+        while (openssl_error_string()) {};
 
-        @openssl_public_encrypt($source, $crypted, $this->key->getFormattedKey());
+        openssl_public_encrypt($source, $crypted, $this->key->getFormattedKey());
         
         if (!$crypted) {
 
