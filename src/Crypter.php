@@ -56,9 +56,9 @@ class Crypter
         $source = base64_decode($source);
 
         //clear error stack
-        while ($msg = openssl_error_string()) {};
+        while (openssl_error_string()) {};
 
-        @openssl_private_decrypt($source, $decrypted, $this->key->getFormattedKey());
+        openssl_private_decrypt($source, $decrypted, $this->key->getFormattedKey());
         
         if (!$decrypted) {
 
